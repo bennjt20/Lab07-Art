@@ -3,6 +3,12 @@
 library(tidyverse)
 library(rvest)
 
+paths_allowed("https://collections.ed.ac.uk/art)")
+
+library(usethis)
+use_git_config(user.name = "John Bennett", 
+               user.email = "bennjt20@wfu.edu")
+
 # set url ----------------------------------------------------------------------
 
 first_url <- "https://collections.ed.ac.uk/art/search/*:*/Collection:%22edinburgh+college+of+art%7C%7C%7CEdinburgh+College+of+Art%22?offset=0"
@@ -13,19 +19,58 @@ page <- read_html(first_url)
 
 # scrape titles ----------------------------------------------------------------
 
+page %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a")
+
+Extract text:
+  page %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a") %>%
+  html_text()
+
+Get rid of white space:
+  page %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a") %>%
+  html_text() %>%
+  str_squish()
+
+Save data as vector length of 10:
 titles <- page %>%
   html_nodes(".iteminfo") %>%
   html_node("h3 a") %>%
   html_text() %>%
-  ___()
+  str_squish()
 
 # scrape links -----------------------------------------------------------------
 
+page %>%
+  html_nodes(".iteminfo") %>%   # same nodes
+  html_node("h3 a") %>%         # as before
+  html_attr("href")
+
+url for art: https://collections.ed.ac.uk/art/record/21297?highlight=*
+
+[Mason's-]
 links <- page %>%
   html_nodes(".iteminfo") %>%
   html_node("h3 a") %>%
   html_attr("href") %>%
+  str_replace(string = "./record/", pattern = "./", replacement = "https://collections.ed.ac.uk/art/")
+  
+ [NOTE: Error here is where things broke down]
+  
   str_replace("\\.", "___")
+
+
+Test:
+str_replace(string = "*:*", pattern = ":*", replacement = " ")
+
+
+Example of replace:
+str_replace(string = "jello", pattern = "j", replacement = "h")
+
 
 # scrape artists ---------------------------------------------------------------
 
@@ -33,6 +78,33 @@ artists <- page %>%
   html_nodes(".iteminfo") %>%
   html_node(".artist") %>%
   ___
+  
+  
+  Template from title:
+  artist %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a")
+
+Extract text:
+  artist %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a") %>%
+  html_text()
+
+Get rid of white space:
+  page %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a") %>%
+  html_text() %>%
+  str_squish()
+
+Save data as vector length of 10:
+titles <- page %>%
+  html_nodes(".iteminfo") %>%
+  html_node("h3 a") %>%
+  html_text() %>%
+  str_squish()
+  
 
 # put together in a data frame -------------------------------------------------
 

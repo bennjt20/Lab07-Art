@@ -1,9 +1,23 @@
 ---
 title: "Lab 07 - University of Edinburgh Art Collection"
-author: "Insert your name here"
-date: "Insert date here"
+author: "John T. Bennett"
+date: "Feb 28, 2022"
 output: github_document
 ---
+
+
+
+
+
+```{r config}
+library(usethis)
+use_git_config(user.name = "John Bennett", 
+               user.email = "bennjt20@wfu.edu")
+```
+
+```{r perms}
+paths_allowed("https://collections.ed.ac.uk/art)")
+```
 
 ### Load packages and data
 
