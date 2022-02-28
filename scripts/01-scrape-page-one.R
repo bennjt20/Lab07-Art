@@ -52,21 +52,17 @@ page %>%
 
 url for art: https://collections.ed.ac.uk/art/record/21297?highlight=*
 
-[Mason's-]
-links <- page %>%
-  html_nodes(".iteminfo") %>%
-  html_node("h3 a") %>%
-  html_attr("href") %>%
+  ?str_replace()
+  
+Test1:
   str_replace(string = "./record/", pattern = "./", replacement = "https://collections.ed.ac.uk/art/")
   
- [NOTE: Error here is where things broke down]
-  
+ 
   str_replace("\\.", "___")
 
-
-Test:
+Test2:
 str_replace(string = "*:*", pattern = ":*", replacement = " ")
-
+[NOTE: Test1 and Test 2 appear to have deleted my list of 10 website. This is where things broke down]
 
 Example of replace:
 str_replace(string = "jello", pattern = "j", replacement = "h")
