@@ -50,22 +50,36 @@ page %>%
   html_node("h3 a") %>%         # as before
   html_attr("href")
 
-url for art: https://collections.ed.ac.uk/art/record/21297?highlight=*
-
+Good URL for artwork: https://collections.ed.ac.uk/art/record/21297?highlight=*
+Bad URL for artwork: ./record/21297?highlight=*:*
+  
   ?str_replace()
   
 Test1:
-  str_replace(string = "./record/", pattern = "./", replacement = "https://collections.ed.ac.uk/art/")
-  
- 
-  str_replace("\\.", "___")
-
+  str_replace(string = "./record/", pattern = "./", replacement = "test")
 Test2:
 str_replace(string = "*:*", pattern = ":*", replacement = " ")
 [NOTE: Test1 and Test 2 appear to have deleted my list of 10 website. This is where things broke down]
+Test3:
+  str_replace(string = "./record/", pattern = "./record", replacement = "https://collections.ed.ac.uk/art/record")
+Test4: 
+  str_remove(string = "./record", pattern = ".")
 
-Example of replace:
+Test5:
+  page %>%
+  html_nodes(".itemInfo") %>%
+  html_text() %>%
+  str_remove(string = "./record", pattern = ".")
+
+Test6:
+  page %>%
+  html_nodes(".itemInfo") %>%
+  html_text() %>%
+    str_replace(string = "./record/", pattern = "./record", replacement = "https://collections.ed.ac.uk/art/record")
+
+Examples of replace:
 str_replace(string = "jello", pattern = "j", replacement = "h")
+str_replace("\\.", "___")
 
 
 # scrape artists ---------------------------------------------------------------
